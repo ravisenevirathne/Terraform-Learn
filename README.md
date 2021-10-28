@@ -1,2 +1,0 @@
-# Terraform-Learn
-Terraform Learn
