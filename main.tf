@@ -2,14 +2,15 @@ provider "aws" {
     region = "ap-southeast-2"
 } 
 
-variable "vpc_cidr_block" {}
-variable "subnet_cidr_block" {}
-variable "avail_zone" {}
-variable "env_prefix" {}
-variable "my_ip" {}
-variable "instance_type" {}
-variable "public_key_location" {}
+variable "vpc_cidr_block" {default = "10.0.0.0/16"}
+variable "subnet_cidr_block" {default = "10.0.10.0/24"}
+variable "avail_zone" {default = "eu-west-3b"}
+variable "env_prefix" {default = "dev"}
+variable "my_ip" {default = "211.26.246.72/32"}
+variable "instance_type" {default = "t2.micro"}
+//variable "public_key_location" {default =}
 
+/*
 vpc_cidr_block = "10.0.0.0/16"
 subnet_cidr_block = "10.0.10.0/24"
 avail_zone = "eu-west-3b"
@@ -17,8 +18,8 @@ env_prefix = "dev"
 my_ip = "211.26.246.72/32"
 instance_type = "t2.micro"
 //public_key_location = "/c/Users/ravi.senevirathne/.ssh/server-key.pub"
-//public_key_location = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9YngnhC5subr0eElN1kRW9pBcJnrJCWOHogfzDUarYQwhgbF/tTuGIdqVKHBekRrand9U6IRxXT9c6DsjspbEGgJuJDd53BIecWfO/y836gCyIZRwAPoK5/r/sBdolgYdJyex+3VGEgmfLhN7ulmDm9oSpcKyVefZGzk8d3/xR3PeC/Vxb0QCyWLrltTNapv9HOYuOsH7XGG2XnOFEhS2CXhIWMYYww9QCn5JweDEOaSCtrPSD6RUVFruDCaEB94//rY3a0gfXSU+IEATQ9WXfrNL6R1FCzAyDpnEZRjqsRtab71+TfJq2p1WNzG+NkSM1kmAQo+d488nEDj0riwFKF9+0VT9s0Xh2VA1q88Czp6BkXyKKO8Bp8TQ90wfCmHf47xHfQkt+mp5twkgPJnwImgl1ZqKH1Ad5B4PiiI6FO1OGadUk5a8LDBUMmmHi1t1veNw68pSuTzylvkQqH7nqyarIaKx4vTaKxjaJHolFZAJcg9nutcTVhWpz7ow0K0= Ravi.Senevirathne@VL000090"
-
+public_key_location = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9YngnhC5subr0eElN1kRW9pBcJnrJCWOHogfzDUarYQwhgbF/tTuGIdqVKHBekRrand9U6IRxXT9c6DsjspbEGgJuJDd53BIecWfO/y836gCyIZRwAPoK5/r/sBdolgYdJyex+3VGEgmfLhN7ulmDm9oSpcKyVefZGzk8d3/xR3PeC/Vxb0QCyWLrltTNapv9HOYuOsH7XGG2XnOFEhS2CXhIWMYYww9QCn5JweDEOaSCtrPSD6RUVFruDCaEB94//rY3a0gfXSU+IEATQ9WXfrNL6R1FCzAyDpnEZRjqsRtab71+TfJq2p1WNzG+NkSM1kmAQo+d488nEDj0riwFKF9+0VT9s0Xh2VA1q88Czp6BkXyKKO8Bp8TQ90wfCmHf47xHfQkt+mp5twkgPJnwImgl1ZqKH1Ad5B4PiiI6FO1OGadUk5a8LDBUMmmHi1t1veNw68pSuTzylvkQqH7nqyarIaKx4vTaKxjaJHolFZAJcg9nutcTVhWpz7ow0K0= Ravi.Senevirathne@VL000090"
+*/
 
 resource "aws_vpc" "myapp-vpc" {
   cidr_block = var.vpc_cidr_block
