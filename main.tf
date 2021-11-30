@@ -11,7 +11,7 @@ variable "instance_type" {default = "t2.micro"}
 //variable "public_key_location" {default =}
 
 /*
-vpc_cidr_block = "10.0.0.0/16"
+//vpc_cidr_block = "10.0.0.0/16"
 subnet_cidr_block = "10.0.10.0/24"
 avail_zone = "eu-west-3b"
 env_prefix = "dev"
