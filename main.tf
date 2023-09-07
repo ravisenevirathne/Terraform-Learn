@@ -1,14 +1,14 @@
 provider "aws" {
-    region = "ap-southeast-2"
+    region = "us-east-1"
 } 
 
 variable "vpc_cidr_block" {default = "10.0.0.0/16"}
 variable "subnet_cidr_block" {default = "10.0.10.0/24"}
-variable "avail_zone" {default = "ap-southeast-2a"}
+variable "avail_zone" {default = "us-east-1a"}
 variable "env_prefix" {default = "dev"}
 variable "my_ip" {default = "211.26.246.72/32"}
 variable "instance_type" {default = "t2.micro"}
-//variable "public_key_location" {default =}
+//variable "public_key_location" {default = "/Users/ravi/Learning/ravi2005.training@gmail.com-2023.pem"}
 
 /*
 //vpc_cidr_block = "10.0.0.0/16"
@@ -108,12 +108,12 @@ output "ec2_public_ip" {
   value = aws_instance.myapp-server.public_ip
 }
 
-/*
-resource "aws_key_pair" "ssh-key" {
-  key_name = "server-key"
-  public_key = var.public_key_location
-}
-*/
+
+# resource "aws_key_pair" "ssh-key" {
+#   key_name = "server-key"
+#   public_key = var.public_key_location
+# }
+
 
 resource "aws_instance" "myapp-server" {
   ami = data.aws_ami.latest-amazon-linux-image.id
@@ -124,7 +124,7 @@ resource "aws_instance" "myapp-server" {
   availability_zone = var.avail_zone
 
   associate_public_ip_address = true
-  //key_name = aws_key_pair.ssh-key.key_name
+  key_name = "ravi2005.training@gmail.com-2023"
 
   user_data = <<EOF
                     #!/bin/bash
