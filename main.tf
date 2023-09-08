@@ -108,7 +108,7 @@ output "ec2_public_ip" {
   value = aws_instance.myapp-server.public_ip
 }
 
-
+# To create keypair on the fly
 # resource "aws_key_pair" "ssh-key" {
 #   key_name = "server-key"
 #   public_key = var.public_key_location
@@ -124,15 +124,42 @@ resource "aws_instance" "myapp-server" {
   availability_zone = var.avail_zone
 
   associate_public_ip_address = true
+# key_name = aws_key_pair.ssh-key.key_name
   key_name = "ravi2005.training@gmail.com-2023"
 
-  user_data = <<EOF
-                    #!/bin/bash
-                    sudo yum update -y && sudo yum install -y docker
-                    sudo systemctl start docker
-                    sudo usermod -aG docker ec2-user
-                    docker run -p 8080:80 nginx 
-                EOF
+# connection is shared between file and remote-exec provisioners
+  connection {
+    type = "ssh"
+    host = self.public_ip
+    user = "ec2-user"
+    private_key = file("./../ravi2005.training@gmail.com-2023.pem")
+  }
+
+  provisioner "file" {
+    source = "entry-script.sh"
+    destination = "/home/ec2-user/entry-script-on-ec2.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [ 
+        "export ENV=dev",
+        "mkdir newdirname",
+        "sh entry-script-on-ec2.sh"   
+     ]
+  }
+
+  provisioner "local-exec" {
+    command = "echo ${self.public_ip}"
+  }
+
+  # user_data = <<EOF
+  #                   #!/bin/bash
+  #                   sudo yum update -y && sudo yum install -y docker
+  #                   sudo systemctl start docker
+  #                   sudo usermod -aG docker ec2-user
+  #                   docker run -p 8080:80 nginx 
+  #               EOF
+  # moved to entry-script.sh
 
     tags = {
       Name: "${var.env_prefix}-server"
