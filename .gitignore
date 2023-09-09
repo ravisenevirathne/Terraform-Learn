@@ -6,4 +6,6 @@
 *.tfstate.*
 
 #tf variable files may include sensitive date
-*.tfvars
+
+# crash files
+crash.log
