@@ -7,3 +7,5 @@
 
 #tf variable files may include sensitive date
 
+# crash files
+crash.log
